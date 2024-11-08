@@ -10,6 +10,11 @@ from flask import Flask, request, render_template
 from flask_babel import Babel
 
 
+app = Flask(__name__)
+app.url_map.strict_slashes = False
+babel = Babel()
+
+
 class Config:
     """Represents the configuration settings for Flask-Babel.
 
@@ -23,11 +28,8 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
 
-# Create and configure the Flask application
-app = Flask(__name__)
+# Configure the Flask application
 app.config.from_object(Config)
-app.url_map.strict_slashes = False
-babel = Babel()
 
 
 # @babel.localeselector

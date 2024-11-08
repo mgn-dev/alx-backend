@@ -16,11 +16,11 @@ def home():
     Returns:
         str: Rendered HTML template for the home page.
     """
-    return render_template('index.html')
+    return render_template('0-index.html')
 
 
 if __name__ == '__main__':
     """
     Run the Flask application in debug mode.
     """
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

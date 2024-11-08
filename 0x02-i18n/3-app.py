@@ -9,6 +9,9 @@ and runs on host 0.0.0.0 at port 5000.
 from flask import Flask, request, render_template
 from flask_babel import Babel
 
+# Create and configure the Flask app
+app = Flask(__name__)
+babel = Babel(app)
 
 class Config:
     """Represents the configuration settings for Flask-Babel.
@@ -22,15 +25,10 @@ class Config:
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
-
-# Create and configure the Flask app
-app = Flask(__name__)
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
-babel = Babel(app)
 
-
-@babel.localeselector
+# @babel.localeselector
 def get_locale() -> str:
     """Retrieve the best matching locale from the request headers.
 

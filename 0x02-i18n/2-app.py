@@ -1,22 +1,42 @@
 #!/usr/bin/env python3
-"""A Basic Flask application with internationalization support.
+"""A simple Flask application that serves a home page using Flask-Babel for
+internationalization.
 
-This application serves a home page and retrieves the user's preferred
-language using Flask-Babel. It supports English and French languages
-and runs on host 0.0.0.0 at port 5000.
+This application supports English and French languages and runs on host
+0.0.0.0 at port 5000.
 """
 
-from flask import Flask, request
-from flask_babel import Babel
-from config import Config
-from routes import *  # Import routes
+from flask_babel import Babel, request
+from flask import Flask, render_template
 
 
-# Create and configure the Flask app
+class Config:
+    """Represents the configuration settings for Flask-Babel.
+
+    Attributes:
+        LANGUAGES (list): A list of supported languages for the application.
+        BABEL_DEFAULT_LOCALE (str): The default locale for the application.
+        BABEL_DEFAULT_TIMEZONE (str): The default timezone for the application.
+    """
+    LANGUAGES = ["en", "fr"]
+    BABEL_DEFAULT_LOCALE = "en"
+    BABEL_DEFAULT_TIMEZONE = "UTC"
+
+
 app = Flask(__name__)
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
 babel = Babel(app)
+
+
+@app.route('/')
+def get_index() -> str:
+    """Render the home/index page.
+
+    Returns:
+        str: The rendered template for the home page.
+    """
+    return render_template('2-index.html')
 
 
 @babel.localeselector
